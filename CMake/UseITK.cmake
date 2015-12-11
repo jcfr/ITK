@@ -231,12 +231,6 @@ foreach(ImageFormat ${LIST_OF_IMAGEIO_FORMATS})
   if (NOT ${ImageFormat}_image_factory_name)
      set(${ImageFormat}_image_factory_name ${ImageFormat}ImageIO)
   endif()
-
-  # For backward compatibility, set ImageIO exceptions using older
-  # convention "<format>_(module|factory)_name" in addition to
-  # "<format>_image_(module|factory)_name".
-  set(${ImageFormat}_module_name ${${ImageFormat}_image_module_name})
-  set(${ImageFormat}_factory_name ${${ImageFormat}_image_factory_name})
 endforeach()
 
 if(NOT ITK_NO_IO_FACTORY_REGISTER_MANAGER)
