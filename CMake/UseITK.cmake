@@ -161,17 +161,11 @@ function(_configure_IOFactoryRegisterManager factory_type formats)
   set(LIST_OF_FACTORIES_REGISTRATION "")
   set(LIST_OF_FACTORY_NAMES "")
 
-  string(TOLOWER ${factory_type} factory_type_lc)
-  set(_qualifier "_${factory_type_lc}")
-
-  # See below for explanation.
-  if("${factory_type}" STREQUAL "Image")
-    set(_qualifier "")
-  endif()
+  string(TOLOWER ${factory_type} _qualifier)
 
   foreach (format ${formats})
-    set(_module_name ${${format}${_qualifier}_module_name})
-    set(_factory_name ${${format}${_qualifier}_factory_name})
+    set(_module_name ${${format}_${_qualifier}_module_name})
+    set(_factory_name ${${format}_${_qualifier}_factory_name})
     ADD_FACTORY_REGISTRATION("LIST_OF_FACTORIES_REGISTRATION" "LIST_OF_FACTORY_NAMES"
       ${_module_name} ${_factory_name})
   endforeach()
@@ -213,33 +207,36 @@ set(LIST_OF_IMAGEIO_FORMATS
     PhilipsREC
     )
 
-# For backward compatibility, ImageIO exceptions are set as
-# "<format>_(module|factory)_name" instead of "<format>_image_(module|factory)_name".
-
 # Exceptions:
 
-set(Nifti_module_name  ITKIONIFTI)
+set(Nifti_image_module_name  ITKIONIFTI)
 
-set(Nrrd_module_name ITKIONRRD)
+set(Nrrd_image_module_name ITKIONRRD)
 
-set(Gipl_module_name ITKIOGIPL)
+set(Gipl_image_module_name ITKIOGIPL)
 
-set(MGH_module_name MGHIO)
+set(MGH_image_module_name MGHIO)
 
-set(GE4_module_name ITKIOGE)
-set(GE5_module_name ITKIOGE)
+set(GE4_image_module_name ITKIOGE)
+set(GE5_image_module_name ITKIOGE)
 
-set(SCIFIO_module_name SCIFIO)
+set(SCIFIO_image_module_name SCIFIO)
 
-set(FDF_module_name IOFDF)
+set(FDF_image_module_name IOFDF)
 
 foreach(ImageFormat ${LIST_OF_IMAGEIO_FORMATS})
-  if (NOT ${ImageFormat}_module_name )
-     set(${ImageFormat}_module_name ITKIO${ImageFormat})
+  if (NOT ${ImageFormat}_image_module_name )
+     set(${ImageFormat}_image_module_name ITKIO${ImageFormat})
   endif()
-  if (NOT ${ImageFormat}_factory_name)
-     set(${ImageFormat}_factory_name ${ImageFormat}ImageIO)
+  if (NOT ${ImageFormat}_image_factory_name)
+     set(${ImageFormat}_image_factory_name ${ImageFormat}ImageIO)
   endif()
+
+  # For backward compatibility, set ImageIO exceptions using older
+  # convention "<format>_(module|factory)_name" in addition to
+  # "<format>_image_(module|factory)_name".
+  set(${ImageFormat}_module_name ${${ImageFormat}_image_module_name})
+  set(${ImageFormat}_factory_name ${${ImageFormat}_image_factory_name})
 endforeach()
 
 if(NOT ITK_NO_IO_FACTORY_REGISTER_MANAGER)
