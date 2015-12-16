@@ -6,6 +6,8 @@ format.")
 
 
 itk_module(ITKIOSpatialObjects
+  DEPENDS
+    ITKTransform
   PRIVATE_DEPENDS
     ITKSpatialObjects
     ITKIOXML
