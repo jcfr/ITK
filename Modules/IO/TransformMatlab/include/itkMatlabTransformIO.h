@@ -72,19 +72,10 @@ protected:
 typedef MatlabTransformIOTemplate<double> MatlabTransformIO;
 
 /** Explicit instantiations */
-#ifndef ITK_TEMPLATE_EXPLICIT_MatlabTransformIO
-// Explicit instantiation is required to ensure correct dynamic_cast
-// behavior across shared libraries.
-#  if defined( ITKIOTransformMatlab_EXPORTS )
-//   We are building this library
-#    define ITKIOTransformMatlab_EXPORT_EXPLICIT
-#  else
-//   We are using this library
-#    define ITKIOTransformMatlab_EXPORT_EXPLICIT ITKIOTransformMatlab_EXPORT
-#  endif
-extern template class ITKIOTransformMatlab_EXPORT_EXPLICIT MatlabTransformIOTemplate< double >;
-extern template class ITKIOTransformMatlab_EXPORT_EXPLICIT MatlabTransformIOTemplate< float >;
-#  undef ITKIOTransformMatlab_EXPORT_EXPLICIT
+#if !defined(ITKIOTransformMatlab_EXPORTS)
+//  We are using this library
+extern template class ITKIOTransformMatlab_EXPORT MatlabTransformIOTemplate< double >;
+extern template class ITKIOTransformMatlab_EXPORT MatlabTransformIOTemplate< float >;
 #endif
 
 }

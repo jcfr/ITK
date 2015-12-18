@@ -16,7 +16,6 @@
  *
  *=========================================================================*/
 
-#define ITK_TEMPLATE_EXPLICIT_HDF5TransformIO
 #include "itkHDF5TransformIO.h"
 #include "itkHDF5TransformIO.hxx"
 

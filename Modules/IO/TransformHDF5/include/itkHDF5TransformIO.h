@@ -147,19 +147,10 @@ const std::string ITKIOTransformHDF5_EXPORT GetTransformName(int);
 typedef HDF5TransformIOTemplate<double> HDF5TransformIO;
 
 /** Explicit instantiations */
-#ifndef ITK_TEMPLATE_EXPLICIT_HDF5TransformIO
-// Explicit instantiation is required to ensure correct dynamic_cast
-// behavior across shared libraries.
-#  if defined( ITKIOTransformHDF5_EXPORTS )
-//   We are building this library
-#    define ITKIOTransformHDF5_EXPORT_EXPLICIT
-#  else
-//   We are using this library
-#    define ITKIOTransformHDF5_EXPORT_EXPLICIT ITKIOTransformHDF5_EXPORT
-#  endif
-extern template class ITKIOTransformHDF5_EXPORT_EXPLICIT HDF5TransformIOTemplate< double >;
-extern template class ITKIOTransformHDF5_EXPORT_EXPLICIT HDF5TransformIOTemplate< float >;
-#  undef ITKIOTransformHDF5_EXPORT_EXPLICIT
+#if !defined(ITKIOTransformHDF5_EXPORTS)
+//  We are using this library
+extern template class ITKIOTransformHDF5_EXPORT HDF5TransformIOTemplate< double >;
+extern template class ITKIOTransformHDF5_EXPORT HDF5TransformIOTemplate< float >;
 #endif
 
 } // end namespace itk

@@ -15,7 +15,7 @@
  *  limitations under the License.
  *
  *=========================================================================*/
-#define ITK_TEMPLATE_EXPLICIT_MetaDataObject
+
 #include "itkMetaDataObject.h"
 
 namespace itk

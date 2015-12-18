@@ -97,19 +97,10 @@ private:
 typedef MINCTransformIOTemplate<double> MINCTransformIO;
 
 /** Explicit instantiations */
-#ifndef ITK_TEMPLATE_EXPLICIT_MINCTransformIO
-// Explicit instantiation is required to ensure correct dynamic_cast
-// behavior across shared libraries.
-#  if defined( ITKIOTransformMINC_EXPORTS )
-//   We are building this library
-#    define ITKIOTransformMINC_EXPORT_EXPLICIT
-#  else
-//   We are using this library
-#    define ITKIOTransformMINC_EXPORT_EXPLICIT ITKIOTransformMINC_EXPORT
-#  endif
-extern template class ITKIOTransformMINC_EXPORT_EXPLICIT MINCTransformIOTemplate< double >;
-extern template class ITKIOTransformMINC_EXPORT_EXPLICIT MINCTransformIOTemplate< float >;
-#  undef ITKIOTransformMINC_EXPORT_EXPLICIT
+#if !defined(ITKIOTransformMINC_EXPORTS)
+//  We are using this library
+extern template class ITKIOTransformMINC_EXPORT MINCTransformIOTemplate< double >;
+extern template class ITKIOTransformMINC_EXPORT MINCTransformIOTemplate< float >;
 #endif
 
 } // end namespace itk

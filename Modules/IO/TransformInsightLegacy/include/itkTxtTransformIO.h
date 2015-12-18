@@ -83,19 +83,10 @@ private:
 typedef TxtTransformIOTemplate<double> TxtTransformIO;
 
 /** Explicit instantiations */
-#ifndef ITK_TEMPLATE_EXPLICIT_TxtTransformIO
-// Explicit instantiation is required to ensure correct dynamic_cast
-// behavior across shared libraries.
-#  if defined( ITKIOTransformInsightLegacy_EXPORTS )
-//   We are building this library
-#    define ITKIOTransformInsightLegacy_EXPORT_EXPLICIT
-#  else
-//   We are using this library
-#    define ITKIOTransformInsightLegacy_EXPORT_EXPLICIT ITKIOTransformInsightLegacy_EXPORT
-#  endif
-extern template class ITKIOTransformInsightLegacy_EXPORT_EXPLICIT TxtTransformIOTemplate< double >;
-extern template class ITKIOTransformInsightLegacy_EXPORT_EXPLICIT TxtTransformIOTemplate< float >;
-#  undef ITKIOTransformInsightLegacy_EXPORT_EXPLICIT
+#if !defined(ITKIOTransformInsightLegacy_EXPORTS)
+//  We are using this library
+extern template class ITKIOTransformInsightLegacy_EXPORT TxtTransformIOTemplate< double >;
+extern template class ITKIOTransformInsightLegacy_EXPORT TxtTransformIOTemplate< float >;
 #endif
 
 }

@@ -121,21 +121,10 @@ template<> void ITKIOTransformBase_EXPORT TransformFileWriterTemplate< double >:
 template<> void ITKIOTransformBase_EXPORT TransformFileWriterTemplate< float >::PushBackTransformList(const Object *transObj);
 
 /** Explicit instantiations */
-#ifndef ITK_TEMPLATE_EXPLICIT_TransformFileWriter
-// Explicit instantiation is required to ensure correct dynamic_cast
-// behavior across shared libraries.
-#  if defined( ITKIOTransformBase_EXPORTS )
-//   We are building this library
-#    define ITKIOTransformBase_EXPORT_EXPLICIT
-#  else
-//   We are using this library
-#    define ITKIOTransformBase_EXPORT_EXPLICIT ITKIOTransformBase_EXPORT
-#  endif
-
-extern template class ITKIOTransformBase_EXPORT_EXPLICIT TransformFileWriterTemplate< double >;
-extern template class ITKIOTransformBase_EXPORT_EXPLICIT TransformFileWriterTemplate< float >;
-
-#  undef ITKIOTransformBase_EXPORT_EXPLICIT
+#if !defined(ITKIOTransformBase_EXPORTS)
+//  We are using this library
+extern template class ITKIOTransformBase_EXPORT TransformFileWriterTemplate< double >;
+extern template class ITKIOTransformBase_EXPORT TransformFileWriterTemplate< float >;
 #endif
 
 #if defined( __GNUC__ )

@@ -16,7 +16,6 @@
  *
  *=========================================================================*/
 
-#define ITK_TEMPLATE_EXPLICIT_TransformBase
 #include "itkTransformBase.h"
 
 namespace itk

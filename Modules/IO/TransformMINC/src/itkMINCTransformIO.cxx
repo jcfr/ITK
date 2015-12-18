@@ -16,7 +16,6 @@
  *
  *=========================================================================*/
 
-#define ITK_TEMPLATE_EXPLICIT_MINCTransformIO
 #include "itkMINCTransformIO.h"
 #include "itkMINCTransformIO.hxx"
 

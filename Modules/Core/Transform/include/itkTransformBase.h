@@ -150,19 +150,10 @@ private:
 typedef TransformBaseTemplate< double > TransformBase;
 
 /** Explicit instantiations */
-#ifndef ITK_TEMPLATE_EXPLICIT_TransformBase
-// Explicit instantiation is required to ensure correct dynamic_cast
-// behavior across shared libraries.
-#  if defined( ITKTransform_EXPORTS )
-//   We are building this library
-#    define ITKTransform_EXPORT_EXPLICIT
-#  else
-//   We are using this library
-#    define ITKTransform_EXPORT_EXPLICIT ITKTransform_EXPORT
-#  endif
-extern template class ITKTransform_EXPORT_EXPLICIT TransformBaseTemplate< double >;
-extern template class ITKTransform_EXPORT_EXPLICIT TransformBaseTemplate< float >;
-#  undef ITKTransform_EXPORT_EXPLICIT
+#if !defined(ITKTransform_EXPORTS)
+//  We are using this library
+extern template class ITKTransform_EXPORT TransformBaseTemplate< double >;
+extern template class ITKTransform_EXPORT TransformBaseTemplate< float >;
 #endif
 
 } // end namespace itk

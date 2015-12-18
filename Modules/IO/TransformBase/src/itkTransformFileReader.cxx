@@ -16,7 +16,6 @@
  *
  *=========================================================================*/
 
-#define ITK_TEMPLATE_EXPLICIT_TransformFileReader
 #include "itkTransformFileReader.h"
 #include "itkTransformFileReader.hxx"
 

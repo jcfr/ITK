@@ -16,7 +16,6 @@
  *
  *=========================================================================*/
 
-#define ITK_TEMPLATE_EXPLICIT_CompositeTransformIOHelper
 #include "itkCompositeTransformIOHelper.h"
 #include "itkCompositeTransformIOHelper.hxx"
 

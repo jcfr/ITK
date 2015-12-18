@@ -16,7 +16,6 @@
  *
  *=========================================================================*/
 
-#define ITK_TEMPLATE_EXPLICIT_TransformIOFactory
 #include "itkTransformIOFactory.h"
 #include "itkTransformIOFactory.hxx"
 

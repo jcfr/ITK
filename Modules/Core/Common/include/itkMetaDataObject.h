@@ -188,39 +188,31 @@ inline bool ExposeMetaData(const MetaDataDictionary & Dictionary, const std::str
   return true;
 }
 
-#ifndef ITK_TEMPLATE_EXPLICIT_MetaDataObject
-// Explicit instantiation is required to ensure correct dynamic_cast
-// behavior across shared libraries.
-#if defined( ITKCommon_EXPORTS )
-// don't use export
-#define ITKCommon_EXPORT_EXPLICIT
-#else
-// only import/hidden
-#define ITKCommon_EXPORT_EXPLICIT ITKCommon_EXPORT
-#endif
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< bool >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< unsigned char >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< char >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< signed char >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< unsigned short >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< short >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< unsigned int >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< int >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< unsigned long >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< long >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< float >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< double >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< std::string >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< std::vector<float> >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< std::vector<double> >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< std::vector<std::vector<float> > >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< std::vector<std::vector<double> > >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< Array<char> >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< Array<int> >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< Array<float> >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< Array<double> >;
-extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< Matrix<double> >;
-#undef ITKCommon_EXPORT_EXPLICIT
+/** Explicit instantiations */
+#if !defined(ITKCommon_EXPORTS)
+//  We are using this library
+extern template class ITKCommon_EXPORT MetaDataObject< bool >;
+extern template class ITKCommon_EXPORT MetaDataObject< unsigned char >;
+extern template class ITKCommon_EXPORT MetaDataObject< char >;
+extern template class ITKCommon_EXPORT MetaDataObject< signed char >;
+extern template class ITKCommon_EXPORT MetaDataObject< unsigned short >;
+extern template class ITKCommon_EXPORT MetaDataObject< short >;
+extern template class ITKCommon_EXPORT MetaDataObject< unsigned int >;
+extern template class ITKCommon_EXPORT MetaDataObject< int >;
+extern template class ITKCommon_EXPORT MetaDataObject< unsigned long >;
+extern template class ITKCommon_EXPORT MetaDataObject< long >;
+extern template class ITKCommon_EXPORT MetaDataObject< float >;
+extern template class ITKCommon_EXPORT MetaDataObject< double >;
+extern template class ITKCommon_EXPORT MetaDataObject< std::string >;
+extern template class ITKCommon_EXPORT MetaDataObject< std::vector<float> >;
+extern template class ITKCommon_EXPORT MetaDataObject< std::vector<double> >;
+extern template class ITKCommon_EXPORT MetaDataObject< std::vector<std::vector<float> > >;
+extern template class ITKCommon_EXPORT MetaDataObject< std::vector<std::vector<double> > >;
+extern template class ITKCommon_EXPORT MetaDataObject< Array<char> >;
+extern template class ITKCommon_EXPORT MetaDataObject< Array<int> >;
+extern template class ITKCommon_EXPORT MetaDataObject< Array<float> >;
+extern template class ITKCommon_EXPORT MetaDataObject< Array<double> >;
+extern template class ITKCommon_EXPORT MetaDataObject< Matrix<double> >;
 #endif
 
 } // end namespace itk

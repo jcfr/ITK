@@ -16,7 +16,6 @@
  *
  *=========================================================================*/
 
-#define ITK_TEMPLATE_EXPLICIT_TxtTransformIO
 #include "itkTxtTransformIO.h"
 #include "itkTxtTransformIO.hxx"
 

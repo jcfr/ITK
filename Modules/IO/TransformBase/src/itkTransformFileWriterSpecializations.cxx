@@ -16,7 +16,6 @@
  *
  *=========================================================================*/
 
-#define ITK_TEMPLATE_EXPLICIT_TransformFileWriter
 #include "itkTransformFileWriter.h"
 #include "itkTransformFileWriter.hxx"
 #include <string>

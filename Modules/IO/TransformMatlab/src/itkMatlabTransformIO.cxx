@@ -16,7 +16,6 @@
  *
  *=========================================================================*/
 
-#define ITK_TEMPLATE_EXPLICIT_MatlabTransformIO
 #include "itkMatlabTransformIO.h"
 #include "itkMatlabTransformIO.hxx"
 
