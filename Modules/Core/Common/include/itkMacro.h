@@ -65,16 +65,21 @@ namespace itk
  * avoiding compile-time warnings. */
 #define itkNotUsed(x)
 
+// Define ITK_PRAGMA macro.
+//
+// It sets "#pragma" preprocessor directives without expecting the arguments
+// to be quoted.
+#define ITK_PRAGMA(x) _Pragma (#x)
 
 // The clang compiler has many useful non-default compiler warnings
 // that tend to have a high false positive rate.
 // The following set of defines allows us to suppress false positives
 // and still track down suspicious code
 #if defined(__clang__) && defined(__has_warning)
-#define CLANG_PRAGMA_PUSH _Pragma("clang diagnostic push")
-#define CLANG_PRAGMA_POP  _Pragma("clang diagnostic pop")
+#define CLANG_PRAGMA_PUSH ITK_PRAGMA(clang diagnostic push)
+#define CLANG_PRAGMA_POP  ITK_PRAGMA(clang diagnostic pop)
 # if __has_warning("-Wfloat-equal")
-#define CLANG_SUPPRESS_Wfloat_equal _Pragma("clang diagnostic ignored \"-Wfloat-equal\"" )
+#define CLANG_SUPPRESS_Wfloat_equal ITK_PRAGMA( clang diagnostic ignored "-Wfloat-equal" )
 # endif
 #else
 #define CLANG_PRAGMA_PUSH
