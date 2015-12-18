@@ -149,10 +149,20 @@ private:
 /** This helps to meet backward compatibility */
 typedef TransformBaseTemplate< double > TransformBase;
 
+} // end namespace itk
+
+#endif
+
 /** Explicit instantiations */
 #ifndef ITK_TEMPLATE_EXPLICIT_TransformBase
 // Explicit instantiation is required to ensure correct dynamic_cast
 // behavior across shared libraries.
+//
+// IMPORTANT: Since within the same compilation unit,
+//            ITK_TEMPLATE_EXPLICIT_<classname> defined and undefined states
+//            need to be considered. This code *MUST* be *OUTSIDE* the header
+//            guards.
+//
 #  if defined( ITKTransform_EXPORTS )
 //   We are building this library
 #    define ITKTransform_EXPORT_EXPLICIT
@@ -160,11 +170,21 @@ typedef TransformBaseTemplate< double > TransformBase;
 //   We are using this library
 #    define ITKTransform_EXPORT_EXPLICIT ITKTransform_EXPORT
 #  endif
+namespace itk
+{
+
+#if defined( __GNUC__ )
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wattributes"
+#endif
+
 extern template class ITKTransform_EXPORT_EXPLICIT TransformBaseTemplate< double >;
 extern template class ITKTransform_EXPORT_EXPLICIT TransformBaseTemplate< float >;
-#  undef ITKTransform_EXPORT_EXPLICIT
+
+#if defined( __GNUC__ )
+#pragma GCC diagnostic pop
 #endif
 
 } // end namespace itk
-
+#  undef ITKTransform_EXPORT_EXPLICIT
 #endif

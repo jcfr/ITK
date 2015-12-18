@@ -120,24 +120,6 @@ typedef itk::TransformFileWriterTemplate<double> TransformFileWriter;
 template<> void ITKIOTransformBase_EXPORT TransformFileWriterTemplate< double >::PushBackTransformList(const Object *transObj);
 template<> void ITKIOTransformBase_EXPORT TransformFileWriterTemplate< float >::PushBackTransformList(const Object *transObj);
 
-/** Explicit instantiations */
-#ifndef ITK_TEMPLATE_EXPLICIT_TransformFileWriter
-// Explicit instantiation is required to ensure correct dynamic_cast
-// behavior across shared libraries.
-#  if defined( ITKIOTransformBase_EXPORTS )
-//   We are building this library
-#    define ITKIOTransformBase_EXPORT_EXPLICIT
-#  else
-//   We are using this library
-#    define ITKIOTransformBase_EXPORT_EXPLICIT ITKIOTransformBase_EXPORT
-#  endif
-
-extern template class ITKIOTransformBase_EXPORT_EXPLICIT TransformFileWriterTemplate< double >;
-extern template class ITKIOTransformBase_EXPORT_EXPLICIT TransformFileWriterTemplate< float >;
-
-#  undef ITKIOTransformBase_EXPORT_EXPLICIT
-#endif
-
 #if defined( __GNUC__ )
 #pragma GCC diagnostic push
 #endif
@@ -151,3 +133,39 @@ extern template class ITKIOTransformBase_EXPORT_EXPLICIT TransformFileWriterTemp
 // Note: Explicit instantiation is done in itkTransformFileWriterSpecializations.cxx
 
 #endif // itkTransformFileWriter_h
+
+/** Explicit instantiations */
+#ifndef ITK_TEMPLATE_EXPLICIT_TransformFileWriter
+// Explicit instantiation is required to ensure correct dynamic_cast
+// behavior across shared libraries.
+//
+// IMPORTANT: Since within the same compilation unit,
+//            ITK_TEMPLATE_EXPLICIT_<classname> defined and undefined states
+//            need to be considered. This code *MUST* be *OUTSIDE* the header
+//            guards.
+//
+#  if defined( ITKIOTransformBase_EXPORTS )
+//   We are building this library
+#    define ITKIOTransformBase_EXPORT_EXPLICIT
+#  else
+//   We are using this library
+#    define ITKIOTransformBase_EXPORT_EXPLICIT ITKIOTransformBase_EXPORT
+#  endif
+namespace itk
+{
+
+#if defined( __GNUC__ )
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wattributes"
+#endif
+
+extern template class ITKIOTransformBase_EXPORT_EXPLICIT TransformFileWriterTemplate< double >;
+extern template class ITKIOTransformBase_EXPORT_EXPLICIT TransformFileWriterTemplate< float >;
+
+#if defined( __GNUC__ )
+#pragma GCC diagnostic pop
+#endif
+
+} // end namespace itk
+#  undef ITKIOTransformBase_EXPORT_EXPLICIT
+#endif

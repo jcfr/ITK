@@ -93,10 +93,22 @@ private:
 /** This helps to meet backward compatibility */
 typedef CompositeTransformIOHelperTemplate<double> CompositeTransformIOHelper;
 
+} // namespace itk
+
+// Note: Explicit instantiation is done in itkCompositeTransformIOHelper.cxx
+
+#endif //  itkCompositeTransformIOHelper_h
+
 /** Explicit instantiations */
 #ifndef ITK_TEMPLATE_EXPLICIT_CompositeTransformIOHelper
 // Explicit instantiation is required to ensure correct dynamic_cast
 // behavior across shared libraries.
+//
+// IMPORTANT: Since within the same compilation unit,
+//            ITK_TEMPLATE_EXPLICIT_<classname> defined and undefined states
+//            need to be considered. This code *MUST* be *OUTSIDE* the header
+//            guards.
+//
 #  if defined( ITKIOTransformBase_EXPORTS )
 //   We are building this library
 #    define ITKIOTransformBase_EXPORT_EXPLICIT
@@ -104,13 +116,21 @@ typedef CompositeTransformIOHelperTemplate<double> CompositeTransformIOHelper;
 //   We are using this library
 #    define ITKIOTransformBase_EXPORT_EXPLICIT ITKIOTransformBase_EXPORT
 #  endif
-extern template class ITKIOTransformBase_EXPORT_EXPLICIT CompositeTransformIOHelperTemplate< double >;
-extern template class ITKIOTransformBase_EXPORT_EXPLICIT CompositeTransformIOHelperTemplate< float >;
-#  undef ITKIOTransformBase_EXPORT_EXPLICIT
+namespace itk
+{
+
+#if defined( __GNUC__ )
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wattributes"
 #endif
 
-} // namespace itk
+extern template class ITKIOTransformBase_EXPORT_EXPLICIT CompositeTransformIOHelperTemplate< double >;
+extern template class ITKIOTransformBase_EXPORT_EXPLICIT CompositeTransformIOHelperTemplate< float >;
 
-// Note: Explicit instantiation is done in itkCompositeTransformIOHelper.cxx
+#if defined( __GNUC__ )
+#pragma GCC diagnostic pop
+#endif
 
-#endif //  itkCompositeTransformIOHelper_h
+} // end namespace itk
+#  undef ITKIOTransformBase_EXPORT_EXPLICIT
+#endif

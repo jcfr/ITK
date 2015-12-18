@@ -82,10 +82,22 @@ private:
 /** This helps to meet backward compatibility */
 typedef TxtTransformIOTemplate<double> TxtTransformIO;
 
+}
+
+// Note: Explicit instantiation is done in itkTxtTransformIO.cxx
+
+#endif // itkTxtTransformIO_h
+
 /** Explicit instantiations */
 #ifndef ITK_TEMPLATE_EXPLICIT_TxtTransformIO
 // Explicit instantiation is required to ensure correct dynamic_cast
 // behavior across shared libraries.
+//
+// IMPORTANT: Since within the same compilation unit,
+//            ITK_TEMPLATE_EXPLICIT_<classname> defined and undefined states
+//            need to be considered. This code *MUST* be *OUTSIDE* the header
+//            guards.
+//
 #  if defined( ITKIOTransformInsightLegacy_EXPORTS )
 //   We are building this library
 #    define ITKIOTransformInsightLegacy_EXPORT_EXPLICIT
@@ -93,13 +105,21 @@ typedef TxtTransformIOTemplate<double> TxtTransformIO;
 //   We are using this library
 #    define ITKIOTransformInsightLegacy_EXPORT_EXPLICIT ITKIOTransformInsightLegacy_EXPORT
 #  endif
-extern template class ITKIOTransformInsightLegacy_EXPORT_EXPLICIT TxtTransformIOTemplate< double >;
-extern template class ITKIOTransformInsightLegacy_EXPORT_EXPLICIT TxtTransformIOTemplate< float >;
-#  undef ITKIOTransformInsightLegacy_EXPORT_EXPLICIT
+namespace itk
+{
+
+#if defined( __GNUC__ )
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wattributes"
 #endif
 
-}
+extern template class ITKIOTransformInsightLegacy_EXPORT_EXPLICIT TxtTransformIOTemplate< double >;
+extern template class ITKIOTransformInsightLegacy_EXPORT_EXPLICIT TxtTransformIOTemplate< float >;
 
-// Note: Explicit instantiation is done in itkTxtTransformIO.cxx
+#if defined( __GNUC__ )
+#pragma GCC diagnostic pop
+#endif
 
-#endif // itkTxtTransformIO_h
+} // end namespace itk
+#  undef ITKIOTransformInsightLegacy_EXPORT_EXPLICIT
+#endif
