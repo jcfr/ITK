@@ -4,5 +4,5 @@ itk_fetch_module(IOTransformDCMTK
   files. See http://www.insight-journal.org/browse/publication/923
              http://hdl.handle.net/10380/3468"
   GIT_REPOSITORY ${git_protocol}://github.com/jcfr/ITKIOTransformDCMTK.git
-  GIT_TAG 97dfe3336b4e1cf38493fb9d1688e272deb73599
+  GIT_TAG 24ee4accd2177f818911691920ccc455050b6c2c
   )
