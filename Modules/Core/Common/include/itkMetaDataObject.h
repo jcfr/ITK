@@ -266,9 +266,13 @@ inline bool ExposeMetaData(const MetaDataDictionary & Dictionary, const std::str
 namespace itk
 {
 
-#if defined( __GNUC__ )
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wattributes"
+#if defined( __GNUC__ ) && !defined( __INTEL_COMPILER )
+#  if ( __GNUC__ > 4 ) || (( __GNUC__ >= 4 ) && ( __GNUC_MINOR__ >= 2 ))
+#    if ( __GNUC_MINOR__ >= 6 )
+#      pragma GCC diagnostic push
+#    endif
+#    pragma GCC diagnostic ignored "-Wattributes"
+#  endif
 #endif
 
 extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< bool >;
@@ -294,8 +298,14 @@ extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< Array<float> >;
 extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< Array<double> >;
 extern template class ITKCommon_EXPORT_EXPLICIT MetaDataObject< Matrix<double> >;
 
-#if defined( __GNUC__ )
-#pragma GCC diagnostic pop
+#if defined( __GNUC__ ) && !defined( __INTEL_COMPILER )
+#  if ( __GNUC__ > 4 ) || (( __GNUC__ >= 4 ) && ( __GNUC_MINOR__ >= 2 ))
+#    if ( __GNUC_MINOR__ >= 6 )
+#      pragma GCC diagnostic pop
+#    else
+#      pragma GCC diagnostic warning "-Wattributes"
+#    endif
+#  endif
 #endif
 
 } // end namespace itk
