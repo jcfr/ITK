@@ -87,6 +87,38 @@ namespace itk
 #define CLANG_SUPPRESS_Wfloat_equal
 #endif
 
+// Define ITK_GCC_PRAGMA_DIAG_(OFF|ON) macros.
+//
+// These macros respectively sets disable/enable a specific diagnostic
+// using the method supported by the version of GCC being used
+// otherwise it is a no-op.
+//
+// GCC diagnostics pragma supported only with GCC >= 4.2
+// GCC push/pop diagnostics pragma supported only with GCC >= 4.6
+#if defined( __GNUC__ ) && !defined( __INTEL_COMPILER )
+#  if ( __GNUC__ > 4 ) || (( __GNUC__ >= 4 ) && ( __GNUC_MINOR__ >= 2 ))
+#    define _ITK_GCC_PRAGMA_DIAG(x) ITK_PRAGMA(GCC diagnostic x)
+#    if ( __GNUC__ > 4 ) || (( __GNUC__ >= 4 ) && ( __GNUC_MINOR__ >= 6 ))
+#      define ITK_GCC_PRAGMA_DIAG_OFF(x) \
+         _ITK_GCC_PRAGMA_DIAG(push)      \
+         _ITK_GCC_PRAGMA_DIAG(ignored #x)
+#      define ITK_GCC_PRAGMA_DIAG_ON(x)  \
+         _ITK_GCC_PRAGMA_DIAG(pop)
+#    else
+#      define ITK_GCC_PRAGMA_DIAG_OFF(x) \
+         _ITK_GCC_PRAGMA_DIAG(ignored x)
+#      define ITK_GCC_PRAGMA_DIAG_ON(x) \
+         _ITK_GCC_PRAGMA_DIAG(warning x)
+#    endif
+#  else
+#    define ITK_GCC_PRAGMA_DIAG_OFF(x)
+#    define ITK_GCC_PRAGMA_DIAG_ON(x)
+#  endif
+#else
+#  define ITK_GCC_PRAGMA_DIAG_OFF(x)
+#  define ITK_GCC_PRAGMA_DIAG_ON(x)
+#endif
+
 
 /*
  * ITK only supports MSVC++ 7.1 and greater

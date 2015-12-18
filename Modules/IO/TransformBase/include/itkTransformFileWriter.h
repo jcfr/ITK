@@ -110,16 +110,7 @@ private:
 
 /** This helps to meet backward compatibility */
 typedef itk::TransformFileWriterTemplate<double> TransformFileWriter;
-
-#if defined( __GNUC__ ) && !defined( __INTEL_COMPILER )
-#  if ( __GNUC__ > 4 ) || (( __GNUC__ >= 4 ) && ( __GNUC_MINOR__ >= 2 ))
-#    if ( __GNUC_MINOR__ >= 6 )
-#      pragma GCC diagnostic push
-#    endif
-#    pragma GCC diagnostic ignored "-Wattributes"
-#  endif
-#endif
-
+ITK_GCC_PRAGMA_DIAG_OFF("-Wattributes")
 /** Declare specializations */
 template<> void ITKIOTransformBase_EXPORT TransformFileWriterTemplate< double >::PushBackTransformList(const Object *transObj);
 template<> void ITKIOTransformBase_EXPORT TransformFileWriterTemplate< float >::PushBackTransformList(const Object *transObj);
@@ -157,29 +148,10 @@ template<> void ITKIOTransformBase_EXPORT TransformFileWriterTemplate< float >::
 #  endif
 namespace itk
 {
-
-#if defined( __GNUC__ ) && !defined( __INTEL_COMPILER )
-#  if ( __GNUC__ > 4 ) || (( __GNUC__ >= 4 ) && ( __GNUC_MINOR__ >= 2 ))
-#    if ( __GNUC_MINOR__ >= 6 )
-#      pragma GCC diagnostic push
-#    endif
-#    pragma GCC diagnostic ignored "-Wattributes"
-#  endif
-#endif
-
+ITK_GCC_PRAGMA_DIAG_OFF("-Wattributes")
 extern template class ITKIOTransformBase_EXPORT_EXPLICIT TransformFileWriterTemplate< double >;
 extern template class ITKIOTransformBase_EXPORT_EXPLICIT TransformFileWriterTemplate< float >;
-
-#if defined( __GNUC__ ) && !defined( __INTEL_COMPILER )
-#  if ( __GNUC__ > 4 ) || (( __GNUC__ >= 4 ) && ( __GNUC_MINOR__ >= 2 ))
-#    if ( __GNUC_MINOR__ >= 6 )
-#      pragma GCC diagnostic pop
-#    else
-#      pragma GCC diagnostic warning "-Wattributes"
-#    endif
-#  endif
-#endif
-
+ITK_GCC_PRAGMA_DIAG_ON("-Wattributes")
 } // end namespace itk
 #  undef ITKIOTransformBase_EXPORT_EXPLICIT
 #endif
