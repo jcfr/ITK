@@ -8,7 +8,7 @@ if(CMAKE_BUILD_TYPE)
   set(_build_configuration_arg -DCMAKE_BUILD_TYPE=Release)
 endif()
 
-configure_file("${ITK_SOURCE_DIR}/CMake/ITKKWStyleConfig.cmake.in"
+configure_file("${ITK_CMAKE_DIR}/ITKKWStyleConfig.cmake.in"
                "${CMAKE_CURRENT_BINARY_DIR}/ITKKWStyleConfig.cmake" @ONLY)
 
 itk_download_attempt_check(KWStyle)
