@@ -251,10 +251,18 @@ macro(check_compiler_platform_flags)
       endforeach()
     endif()
 
-    # gcc must have -msse2 option to enable sse2 support
-    if(VNL_CONFIG_ENABLE_SSE2 OR VNL_CONFIG_ENABLE_SSE2_ROUNDING)
+    include(${ITK_SOURCE_DIR}/Modules/Core/Common/CMake/CheckSupportForSSERounding.cmake)
+    if(NOT ITK_COMPILER_DOES_NOT_NEED_MSSE2_FLAG)
       set(ITK_REQUIRED_CXX_FLAGS "${ITK_REQUIRED_CXX_FLAGS} -msse2")
     endif()
+
+    if(ITK_COMPILER_SUPPORTS_SSE2_32 OR ITK_COMPILER_SUPPORTS_SSE2_64)
+      set(VXL_HAS_SSE2_HARDWARE_SUPPORT 1)
+    endif()
+    if(NOT ITK_COMPILER_DOES_NOT_NEED_MSSE2_FLAG)
+      set(VXL_SSE2_HARDWARE_SUPPORT_POSSIBLE 1)
+    endif()
+
   endif()
 
   #-----------------------------------------------------------------------------
